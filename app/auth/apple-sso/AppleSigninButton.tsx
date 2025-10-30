@@ -10,8 +10,15 @@ function AppleSignIn() {
     console.error('Apple Sign In Error:', error)
   }
 
-  // Hardcoded values for local testing
-  const baseUrl = 'https://apple-sso-delta.vercel.app'
+  // Resolve base URL on the client without using env vars
+  const getBaseUrl = () => {
+    if (typeof window !== 'undefined') {
+      return window.location.origin
+    }
+    return 'http://localhost:3000'
+  }
+
+  const baseUrl = getBaseUrl()
   const clientId = 'com.telliant.web.localhost'
 
   if (!clientId) {
