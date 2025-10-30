@@ -1,4 +1,5 @@
-
-
-Services ID
-com.telliant.firstnextapptest
+module.exports = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+}
