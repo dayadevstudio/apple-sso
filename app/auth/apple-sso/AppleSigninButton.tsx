@@ -10,13 +10,28 @@ function AppleSignIn() {
     console.error('Apple Sign In Error:', error)
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+  // Hardcoded values for local testing
+  const baseUrl = 'https://dayadevstudio.vercel.app'
+  const clientId = 'com.telliant.web.localhost'
+
+  if (!clientId) {
+    // Surface a clear error when client ID is not configured
+    console.error(
+      'Apple Sign In configuration error: NEXT_PUBLIC_APPLE_CLIENT_ID is not set. Set it to your Apple Service ID (e.g., com.your.domain.web) and restart the dev server.'
+    )
+  }
+
+  // Helpful log to verify values during setup
+  if (typeof window !== 'undefined') {
+    // eslint-disable-next-line no-console
+    console.debug('[Apple SSO] Using clientId/baseUrl:', clientId, baseUrl)
+  }
 
   const authOptions = {
-    clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID || 'com.telliant.web.localhost',
-    scope: process.env.NEXT_PUBLIC_APPLE_SCOPE || 'email name',
+    clientId: clientId || 'MISSING_CLIENT_ID',
+    scope: 'email name',
     redirectURI: `${baseUrl}/api/auth/callback`,
-    nonce: process.env.NEXT_PUBLIC_APPLE_NONCE || 'nonce',
+    nonce: 'nonce',
     usePopup: false,
   }
 
