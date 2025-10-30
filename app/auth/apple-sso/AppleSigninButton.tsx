@@ -11,7 +11,7 @@ function AppleSignIn() {
   }
 
   // Hardcoded values for local testing
-  const baseUrl = 'https://dayadevstudio.vercel.app'
+  const baseUrl = 'https://apple-sso-delta.vercel.app'
   const clientId = 'com.telliant.web.localhost'
 
   if (!clientId) {
