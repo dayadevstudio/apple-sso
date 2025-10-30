@@ -37,7 +37,7 @@ function AppleSignIn() {
   const authOptions = {
     clientId: clientId || 'MISSING_CLIENT_ID',
     scope: 'email name',
-    redirectURI: `${baseUrl}/api/auth/callback`,
+    redirectURI: `https://apple-sso-delta.vercel.app/api/auth/callback`,
     nonce: 'nonce',
     usePopup: false,
   }

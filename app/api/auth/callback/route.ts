@@ -1,21 +1,32 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export const dynamic = "force-dynamic";
+
+export async function POST(req: Request) {
   try {
     const formData = await req.formData();
-    const data = Object.fromEntries(formData.entries());
+    const id_token = formData.get("id_token");
+    const user = formData.get("user");
 
-    console.log("🍎 Apple callback payload:", data);
+    // Optional: parse Apple user info (Apple sends JSON once)
+    let parsedUser = null;
+    try {
+      parsedUser = user ? JSON.parse(user as string) : null;
+    } catch (e) {
+      console.error("Failed to parse Apple user JSON", e);
+    }
 
-    // TODO: exchange code for tokens here if needed
+    // TODO: Store user info in DB or session here if needed
 
-    return NextResponse.json({ received: true, data });
+    // Redirect to /users with user info as query params (optional)
+    const redirectUrl = new URL("/users", req.url);
+    if (parsedUser?.email) redirectUrl.searchParams.set("email", parsedUser.email);
+    if (parsedUser?.name?.firstName)
+      redirectUrl.searchParams.set("name", `${parsedUser.name.firstName} ${parsedUser.name.lastName || ""}`);
+
+    return NextResponse.redirect(redirectUrl.toString());
   } catch (err) {
-    console.error("Callback error:", err);
-    return NextResponse.json({ error: "Callback handling failed" }, { status: 500 });
+    console.error("Apple callback error:", err);
+    return NextResponse.json({ error: "Callback failed" }, { status: 500 });
   }
-}
-
-export async function GET() {
-  return NextResponse.json({ message: "GET not supported — use POST" });
 }
