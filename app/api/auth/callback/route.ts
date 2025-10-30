@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     if (parsedUser?.name?.firstName)
       redirectUrl.searchParams.set("name", `${parsedUser.name.firstName} ${parsedUser.name.lastName || ""}`);
 
-    return NextResponse.redirect(redirectUrl.toString());
+    return NextResponse.redirect(redirectUrl, { status: 303 });
   } catch (err) {
     console.error("Apple callback error:", err);
     return NextResponse.json({ error: "Callback failed" }, { status: 500 });
