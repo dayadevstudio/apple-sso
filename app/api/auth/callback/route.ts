@@ -1,18 +1,21 @@
-// app/api/auth/callback/route.ts
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  const formData = await req.formData();
+export async function POST(req: NextRequest) {
+  try {
+    const formData = await req.formData();
+    const data = Object.fromEntries(formData.entries());
 
-  const code = formData.get("code");
-  const idToken = formData.get("id_token");
-  const user = formData.get("user");
+    console.log("🍎 Apple callback payload:", data);
 
-  // TODO: Exchange the code for an access token from Apple’s API
-  // and verify the id_token (JWT) for authenticity.
+    // TODO: exchange code for tokens here if needed
 
-  console.log("Apple callback:", { code, idToken, user });
+    return NextResponse.json({ received: true, data });
+  } catch (err) {
+    console.error("Callback error:", err);
+    return NextResponse.json({ error: "Callback handling failed" }, { status: 500 });
+  }
+}
 
-  // Redirect user to your app after successful auth
-  return NextResponse.redirect("/users");
+export async function GET() {
+  return NextResponse.json({ message: "GET not supported — use POST" });
 }
