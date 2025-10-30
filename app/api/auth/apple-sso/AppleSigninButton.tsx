@@ -9,10 +9,10 @@ function AppleSignIn() {
   };
 
   const authOptions = {
-    clientId: 'com.telliant.web.localhost', // Your Service ID
-    scope: 'email name',
-    redirectURI: 'https://dayadevstudio.github.io/apple-sso/auth/callback',
-    nonce: 'nonce',
+    clientId: process.env.APPLE_CLIENT_ID || 'com.telliant.web.localhost', // Your Service ID
+    scope: process.env.APPLE_SCOPE || 'email name',
+    redirectURI: 'https://dayadevstudio.github.io/api/auth/callback',
+    nonce: process.env.APPLE_NONCE || 'nonce',
     usePopup: true, // Recommended for single-page apps
   };
 

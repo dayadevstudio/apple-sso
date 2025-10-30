@@ -1,6 +1,5 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import AppleSignIn from './auth/apple-sso/AppleSigninButton'
+import AppleSignIn from './api/auth/apple-sso/AppleSigninButton'
 export default function Home() {
   return (
     <main>
