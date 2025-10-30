@@ -13,7 +13,7 @@ function AppleSignIn() {
     scope: process.env.APPLE_SCOPE || 'email name',
     redirectURI: 'https://dayadevstudio.vercel.app/api/auth/callback',
     nonce: process.env.APPLE_NONCE || 'nonce',
-    usePopup: true, // Recommended for single-page apps
+    usePopup: false, // Recommended for single-page apps
   };
 
   return (

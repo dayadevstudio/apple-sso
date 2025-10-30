@@ -14,5 +14,5 @@ export async function POST(req: Request) {
   console.log("Apple callback:", { code, idToken, user });
 
   // Redirect user to your app after successful auth
-  return NextResponse.redirect("/dashboard");
+  return NextResponse.redirect("/users");
 }
