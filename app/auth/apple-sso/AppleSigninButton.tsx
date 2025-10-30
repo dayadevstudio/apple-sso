@@ -39,7 +39,7 @@ function AppleSignIn() {
     scope: 'email name',
     redirectURI: `https://apple-sso-delta.vercel.app/api/auth/callback`,
     nonce: 'nonce',
-    usePopup: false,
+    usePopup: true,
   }
 
   return (
