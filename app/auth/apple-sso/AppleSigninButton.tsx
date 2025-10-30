@@ -2,7 +2,7 @@
 import AppleSigninButton from 'react-apple-signin-auth';
 
 function AppleSignIn() {
-  const handleSuccess = (data) => {
+  const handleSuccess = (data: any) => {
     const { authorization, user } = data;
     // Send data to your backend for verification
     console.log('Apple Sign In Success:', data);
@@ -22,7 +22,7 @@ function AppleSignIn() {
       uiType="dark"
       className="apple-auth-btn"
       onSuccess={handleSuccess}
-      onError={(error) => console.error(error)}
+      onError={(error: any) => console.error(error)}
     />
   );
 }
