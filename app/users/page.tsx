@@ -1,8 +1,9 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function UsersPage() {
+function UsersContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const name = searchParams.get("name");
@@ -20,5 +21,13 @@ export default function UsersPage() {
         <p className="text-gray-500">No user info found — try logging in again.</p>
       )}
     </div>
+  );
+}
+
+export default function UsersPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center">Loading user info...</div>}>
+      <UsersContent />
+    </Suspense>
   );
 }
